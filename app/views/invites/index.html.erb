@@ -1,0 +1,24 @@
+<h1>My Invites</h1>
+
+<p>
+<%= link_to 'Back', welcome_index_path, class: "btn"  %>
+</p>
+
+<table class="table table-striped">
+  <tr>
+    <th>Group</th>
+    <th>Accept</th>
+	<th>Decline</th>
+  </tr>
+ 
+  <% @invites.each do |invite| %>
+    <tr>
+      <td><%= Group.find(invite.group_id).name %></td>
+      <td><%= link_to "Accept", accept_path(invite), method: :accept, class: 'btn' %></td>
+      <td><%= link_to "Decline", invite_path(invite),
+        method: :delete, class: 'btn' %></td>
+    </tr>
+  <% end %>
+
+</table>
+

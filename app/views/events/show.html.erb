@@ -1,0 +1,29 @@
+<h1><%= @event.title %></h1>
+
+<p>
+<%= link_to "Back", group_path(@group), class: 'btn' %> <%= link_to 'Edit', edit_group_event_path(@event.group_id, @event), class: 'btn' %>
+
+<% rsvp = current_user.rsvps.find_by event_id: @event.id %>
+<% if rsvp.attending == false %>
+      <%= link_to "Attend", attend_path, method: :attend, class: 'btn' %>
+<% else %>
+      <%= link_to "Flake Out", flake_path, method: :flake, data: { confirm: 'Are you sure?' }, class: 'btn' %>
+<% end %>
+</p>
+
+<p>Date: <%= @event.date %> <%= @event.time %></p>
+<p>Location: <%= @event.location %></p>
+<p>Description: <%= @event.description %></p>
+<p>Attendees:
+	<% @attendees.each do |attendee| %>
+		<%= mail_to(attendee.email, attendee.first_name + " " + attendee.last_name)%> <%= reliability(attendee) %>%, 
+	<% end %>
+	
+	
+	</p>
+<br>
+<h4>Comments:</h4>
+<%= render @event.comments %>
+<br>
+<h4>Add a comment:</h4>
+<%= render "comments/form" %>

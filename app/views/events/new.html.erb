@@ -1,0 +1,53 @@
+<h1>
+New Event!
+</h1>
+
+
+<p>
+<%= link_to 'Back', group_events_path, class: "btn"  %>
+</p>
+
+<%= form_for([@group, @group.events.build]) do |f| %>
+  <% if @event.errors.any? %>
+  <div id="errorExplanation">
+    <h2><%= pluralize(@event.errors.count, "error") %> prohibited
+      this post from being saved:</h2>
+    <ul>
+    <% @event.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+  <% end %>
+  
+  <div class="form group">
+  
+    <%= f.label :title %><br>
+    <%= f.text_field :title %>
+  </div>
+ 
+  <div class="form group">
+    <%= f.label :description %><br>
+    <%= f.text_area :description %>
+  </div>
+
+  <div class="form group">
+    <%= f.label :location %><br>
+    <%= f.text_field :location %>
+  </div>
+
+ <div class="form group">
+    <%= f.label :date %><br>
+    <%= f.date_select :date %>
+  </div>
+
+ <div class="form group">
+    <%= f.label :time %><br>
+    <%= f.time_select :time %>
+  </div>
+ 
+  <div class="form group">
+    <%= f.submit "Add Event", class: 'btn' %>
+  
+  </div>
+<% end %>

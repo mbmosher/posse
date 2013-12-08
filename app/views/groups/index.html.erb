@@ -1,0 +1,20 @@
+<h1>My Groups</h1>
+
+<p>
+<%= link_to 'Back', welcome_index_path, class: "btn"  %> <%= link_to "New Group", new_group_path, class: 'btn' %>
+</p>
+
+<table class="table table-striped">
+  <tr>
+    <th>Group</th>
+    <th>Description</th>
+  </tr>
+ 
+  <% @groups.each do |group| %>
+    <tr>
+      <td><%= link_to group.name, group_path(group) %></td>
+      <td><%= group.description %></td>
+    </tr>
+  <% end %>
+</table>
+

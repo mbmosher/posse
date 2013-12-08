@@ -1,0 +1,54 @@
+<h1><%= @group.name %></h1>
+
+<p>
+<%= link_to "Back", groups_path, class: 'btn' %>
+
+<%= link_to "New Event", new_group_event_path(@group), class: 'btn' %>
+
+<%= link_to "Leave Group", leave_path(@myinvite),
+    method: :leave, data: { confirm: 'Are you sure?' }, class: 'btn' %>
+</p>
+
+	
+	<br>
+
+	<table class="table table-striped">
+	  <tr>
+	    <th>Event</th>
+	    <th>Date</th>
+		<th>Time</th>
+		<th>Location</th>
+		<th>RSVP</th>
+	  </tr>
+
+	  <% @events.each do |event| %>
+	    <tr>
+	      <td><%= link_to event.title, group_event_path(@group, event) %></td>
+	      <td><%= event.date %></td>
+		  <td><%= event.time %></td>
+		  <td><%= event.location %></td>
+		  <td><% rsvp = current_user.rsvps.find_by event_id: event.id %>
+		      <% if rsvp.attending == false %>
+		      <%= link_to "Attend", attend_path(event), method: :attend, class: 'btn' %>
+		      <% else %>
+		      I'm Going!
+			  <% end %></td>
+	    </tr>
+	  <% end %>
+	</table>
+	
+	<p>Members:  
+	<% @members.each do |member| %>
+		<%= mail_to(member.email, member.first_name + " " + member.last_name)%>, 
+	<% end %>
+	</p>
+	<br>
+	<h4>Invite a friend:</h4>
+	<%= form_for([:group, @user]) do |f| %>
+	  <div class="form-inline">
+	    <% f.label :email %>
+	    <%= f.text_field :email, placeholder: 'Email Address' %>
+	    <%= f.hidden_field :group_id, :value => @group.id  %><br>
+	    <%= f.submit "Send Invite", class: 'btn' %>
+	  </div>
+	<% end %>

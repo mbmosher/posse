@@ -1,0 +1,7 @@
+<%= form_for(@invite) do |f| %>
+  <div class="form-inline">
+    <% f.label :email %>
+    <%= f.text_field :email %>
+    <%= f.submit "Invite Friend", class: 'btn' %>
+  </div>
+<% end %>

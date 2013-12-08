@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Posse</title>
+  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+	
+	
+
+	<div class="container">
+		<br>
+		
+		<div class="navbar" role="navigation">
+		<div class="navbar-inner">
+			
+		<%= link_to "Posse", root_path, class: 'brand' %>
+
+		<% if user_signed_in? %>
+		<ul class="nav navbar-nav">
+		  <li><%= link_to "My Confirmed Events", myevents_path %></li> 
+		<li class="divider-vertical"></li>
+		  <li><%= link_to "My Group Events", allevents_path %></li> 
+		<li class="divider-vertical"></li>
+		  <li><%= link_to "My Groups", groups_path %></li> 
+		<li class="divider-vertical"></li>
+		  <li><%= link_to "Group Invites (" + current_user.invites.where("accepted = ?", false).count.to_s + ")", invites_path %></li> 
+		
+		</ul>
+		<ul class="nav navbar-nav pull-right">
+		  <li><%= link_to 'Edit profile', edit_user_registration_path %></li> 
+		<li class="divider-vertical"></li>
+		  <li><%= link_to "Logout", destroy_user_session_path, method: :delete  %></li>
+		</ul>
+		
+
+
+		<% else %>
+		<ul class="nav navbar-nav pull-right">
+		  <li><%= link_to "Sign up", new_user_registration_path, class: "btn"  %></li>
+		<li class="divider-vertical"></li> 
+		  <li><%= link_to "Login", new_user_session_path, class: "btn"  %></li> 
+		</ul>
+		<% end %>
+		
+	    </div<!-- /.navbar-collapse -->
+	    </div>
+	
+		<% if user_signed_in? %>
+		  <p class="pull-right">Logged in as <strong><%= current_user.email %></strong>.</p>
+		<% end %>
+
+	<% if notice %>
+	<br>
+	  <p class="alert alert-notice"><%= notice %></p>
+	<% end %>
+	<% if alert %>
+	<br>
+	  <p class="alert alert-error"><%= alert %></p>
+	<% end %>
+
+	<%= yield %>
+
+	</div>
+
+</body>
+</html>
