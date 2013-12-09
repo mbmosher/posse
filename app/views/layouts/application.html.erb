@@ -5,6 +5,7 @@
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
+
 </head>
 <body>
 	
@@ -22,11 +23,9 @@
 		<ul class="nav navbar-nav">
 		  <li><%= link_to "My Confirmed Events", myevents_path %></li> 
 		<li class="divider-vertical"></li>
-		  <li><%= link_to "My Group Events", allevents_path %></li> 
+		  <li><%= link_to "My Posses", groups_path %></li> 
 		<li class="divider-vertical"></li>
-		  <li><%= link_to "My Groups", groups_path %></li> 
-		<li class="divider-vertical"></li>
-		  <li><%= link_to "Group Invites (" + current_user.invites.where("accepted = ?", false).count.to_s + ")", invites_path %></li> 
+		  <li><%= link_to "Posse Invites (" + current_user.invites.where("accepted = ?", false).count.to_s + ")", invites_path %></li> 
 		
 		</ul>
 		<ul class="nav navbar-nav pull-right">

@@ -6,8 +6,7 @@ class Event < ActiveRecord::Base
   has_many :comments
   
   validates :title, presence: true
-  validates :date, presence: true
-  validates :time, presence: true
+  validates :datetime, presence: true
   validates :location, presence: true
   
 end

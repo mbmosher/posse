@@ -7,9 +7,8 @@
 <table class="table table-striped">
   <tr>
     <th>Event</th>
-    <th>Group</th>
-    <th>Date</th>
-	<th>Time</th>
+    <th>Posse</th>
+    <th>Date and Time</th>
 	<th>Location</th>
   </tr>
  
@@ -17,8 +16,7 @@
     <tr>
 	      <td><%= link_to rsvp.event.title, group_event_path(rsvp.event.group_id, rsvp.event) %></td>
 	      <td><%= link_to rsvp.event.group.name, group_path(rsvp.event.group) %></td>
-	      <td><%= rsvp.event.date %></td>
-		  <td><%= rsvp.event.time %></td>
+	      <td><%= rsvp.event.datetime %></td>
 		  <td><%= rsvp.event.location %></td>
     </tr>
   <% end %>

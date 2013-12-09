@@ -5,7 +5,7 @@
 
 <%= link_to "New Event", new_group_event_path(@group), class: 'btn' %>
 
-<%= link_to "Leave Group", leave_path(@myinvite),
+<%= link_to "Leave Posse", leave_path(@myinvite),
     method: :leave, data: { confirm: 'Are you sure?' }, class: 'btn' %>
 </p>
 
@@ -15,8 +15,7 @@
 	<table class="table table-striped">
 	  <tr>
 	    <th>Event</th>
-	    <th>Date</th>
-		<th>Time</th>
+	    <th>Date and Time</th>
 		<th>Location</th>
 		<th>RSVP</th>
 	  </tr>
@@ -24,8 +23,7 @@
 	  <% @events.each do |event| %>
 	    <tr>
 	      <td><%= link_to event.title, group_event_path(@group, event) %></td>
-	      <td><%= event.date %></td>
-		  <td><%= event.time %></td>
+	      <td><%= event.datetime %></td>
 		  <td><%= event.location %></td>
 		  <td><% rsvp = current_user.rsvps.find_by event_id: event.id %>
 		      <% if rsvp.attending == false %>

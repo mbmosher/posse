@@ -7,9 +7,8 @@
 <table class="table table-striped">
   <tr>
     <th>Event</th>
-    <th>Group</th>
-    <th>Date</th>
-	<th>Time</th>
+    <th>Posse</th>
+    <th>Date and Time</th>
 	<th>Location</th>
 	<th>RSVP</th>
   </tr>
@@ -18,8 +17,7 @@
     <tr>
 	      <td><%= link_to event.title, group_event_path(event.group_id, event) %></td>
 	      <td><%= link_to event.group.name, group_path(event.group) %></td>
-	      <td><%= event.date %></td>
-		  <td><%= event.time %></td>
+	      <td><%= event.datetime %></td>
 		  <td><%= event.location %></td>
 		<td><% rsvp = current_user.rsvps.find_by event_id: event.id %>
 		      <% if rsvp.attending == false %>

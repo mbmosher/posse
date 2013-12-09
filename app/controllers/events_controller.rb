@@ -51,7 +51,7 @@ class EventsController < ApplicationController
   def update
     @group = Group.find(params[:group_id])
   	@event = Event.find(params[:id])
-  	if @event.update(params[:event].permit(:location, :time))
+  	if @event.update(params[:event].permit(:location, :datetime))
   		redirect_to group_event_path(@event.group_id, @event)
   	else
   		redirect_to edit_group_event_path(@event.group_id, @event)
@@ -59,15 +59,15 @@ class EventsController < ApplicationController
   end
   
   def index
-    @myevents = current_user.rsvps.where("attending = ?", true).joins(:event).where("date >= ?", Date.today).order('date desc') 
+    @myevents = current_user.rsvps.where("attending = ?", true).joins(:event).where("datetime >= ?", Date.today).order('datetime desc') 
   end
   
   def allevents
-    @myevents = current_user.events.where("date >= ?", Date.today).order(:date)
+    @myevents = current_user.events.where("datetime >= ?", Date.today).order(:datetime)
   end
   
   def pastevents
-    @myevents = current_user.rsvps.where("attending = ?", true).joins(:event).where("date <= ?", Date.today).order('date desc')
+    @myevents = current_user.rsvps.where("attending = ?", true).joins(:event).where("datetime <= ?", Date.today).order('datetime desc')
   end
   
 end
@@ -82,5 +82,5 @@ def reliability(attendee)
 end
 
 def event_params
-  params.require(:event).permit(:title, :description, :location, :date, :time)
+  params.require(:event).permit(:title, :description, :location, :datetime)
 end

@@ -18,7 +18,7 @@ class GroupsController < ApplicationController
 
   def show
   	@group = Group.find(params[:id])
-  	@events = @group.events.where("date >= ?", Date.today).order(:date)
+  	@events = @group.events.where("datetime >= ?", Date.today).order(:datetime)
   	# members needs to check invites for group acceptance
   	# @members = @group.users.where("user.invite.accepted = ?", true)
   	@members = []

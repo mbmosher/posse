@@ -11,8 +11,9 @@
 <% end %>
 </p>
 
-<p>Date: <%= @event.date %> <%= @event.time %></p>
+<p>Date: <%= @event.datetime %></p>
 <p>Location: <%= @event.location %></p>
+<p>Posse: <%= link_to @event.group.name, group_path(@event.group) %></p>
 <p>Description: <%= @event.description %></p>
 <p>Attendees:
 	<% @attendees.each do |attendee| %>
