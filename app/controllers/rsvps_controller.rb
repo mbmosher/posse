@@ -32,4 +32,11 @@ class RsvpsController < ApplicationController
   	@rsvp.destroy
   end
   
+  def addNew
+    @group = Group.find(params[:id])
+    #  @event = 
+    Rsvp.create(:user_id => current_user.id, :event_id => @event.id, :group_id => @group.id, :attending => true)
+  end
+    
+  
 end

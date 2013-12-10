@@ -1,7 +1,11 @@
 <h1><%= @event.title %></h1>
 
 <p>
-<%= link_to "Back", group_path(@group), class: 'btn' %> <%= link_to 'Edit', edit_group_event_path(@event.group_id, @event), class: 'btn' %>
+<%= link_to "Back", group_path(@group), class: 'btn' %> 
+
+<% if reliability(current_user) >= 50 %>
+<%= link_to 'Edit', edit_group_event_path(@event.group_id, @event), class: 'btn' %>
+<% end %>
 
 <% rsvp = current_user.rsvps.find_by event_id: @event.id %>
 <% if rsvp.attending == false %>

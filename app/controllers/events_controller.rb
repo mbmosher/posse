@@ -66,7 +66,7 @@ class EventsController < ApplicationController
     end
     
     # @date = params[:month] ? Date.parse(params[:month]) : Date.today
-    @myevents = current_user.rsvps.where("attending = ?", true).joins(:event).where("datetime >= ?", Date.today).order('datetime desc') 
+    @myevents = current_user.rsvps.where("attending = ?", true).joins(:event).where("datetime >= ?", Date.today).order('datetime asc') 
     # @myevents2 = current_user.events.where("datetime >= ?", Date.today).joins(:rsvps).where("attending = ?", true).order('datetime desc')
     @myevents2 = []
     @myevents.each do |rsvp|

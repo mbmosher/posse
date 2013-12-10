@@ -26,11 +26,14 @@
 	      <td><%= event.datetime %></td>
 		  <td><%= event.location %></td>
 		  <td><% rsvp = current_user.rsvps.find_by event_id: event.id %>
+			<% if rsvp.nil? %>
+			<% else %>
 		      <% if rsvp.attending == false %>
 		      <%= link_to "Attend", attend_path(event), method: :attend, class: 'btn' %>
 		      <% else %>
 		      I'm Going!
-			  <% end %></td>
+			  <% end %>
+			<% end %></td>
 	    </tr>
 	  <% end %>
 	</table>
