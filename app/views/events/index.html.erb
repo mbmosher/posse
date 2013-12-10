@@ -4,24 +4,7 @@
 <%= link_to 'Back', welcome_index_path, class: "btn"  %> <%= link_to 'Past Events', pastevents_path, class: 'btn' %>
 </p>
 
-<div id="calendar">
-  <h2 id="month">
-    <%=h @date.strftime("%B %Y") %>
-  </h2>
-<%= calendar_for(@myevents2, :year => @date.year, :month => @date.month) do |t| %>
-  <%= t.head('mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun') %>
-  <%= t.day(:day_method => :datetime) do |day, events| %>
-    <%= day.day %>
-<ul>
-    <% events.each do |event| %>
-      <li><%= event.datetime.strftime("%H:%M") %> <%= link_to h(event.title), group_event_path(event.group, event) %></li>
-    <% end %>
-</ul>
-  <% end %>
-<% end %>
-</div>
 
-<br><br>
 
 <table class="table table-striped">
   <tr>
