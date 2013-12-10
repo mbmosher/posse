@@ -21,6 +21,7 @@
 
 		<% if user_signed_in? %>
 		<ul class="nav navbar-nav">
+	    <li class="divider-vertical"></li>
 		  <li><%= link_to "My Confirmed Events", myevents_path %></li> 
 		<li class="divider-vertical"></li>
 		  <li><%= link_to "My Posses", groups_path %></li> 
@@ -48,7 +49,7 @@
 	    </div>
 	
 		<% if user_signed_in? %>
-		  <p class="pull-right">Logged in as <strong><%= current_user.email %></strong>.</p>
+		  <p class="pull-right">Logged in as <strong><%= current_user.email %></strong></p>
 		<% end %>
 
 	<% if notice %>

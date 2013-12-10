@@ -59,7 +59,21 @@ class EventsController < ApplicationController
   end
   
   def index
+    if params[:month].nil?
+      @date = Date.today
+    else
+      @date = params[:month]
+    end
+    
+    # @date = params[:month] ? Date.parse(params[:month]) : Date.today
     @myevents = current_user.rsvps.where("attending = ?", true).joins(:event).where("datetime >= ?", Date.today).order('datetime desc') 
+    # @myevents2 = current_user.events.where("datetime >= ?", Date.today).joins(:rsvps).where("attending = ?", true).order('datetime desc')
+    @myevents2 = []
+    @myevents.each do |rsvp|
+      @myevents2 << rsvp.event
+    end
+      
+  
   end
   
   def allevents
