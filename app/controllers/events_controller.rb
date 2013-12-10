@@ -12,6 +12,7 @@ class EventsController < ApplicationController
   def create
   	@group = Group.find(params[:group_id])
   	@event = @group.events.new(event_params) 
+  	@event.modder = current_user.id
     if @event.save
       @group.users.each do |user|
         if user.id == current_user.id
@@ -29,6 +30,7 @@ class EventsController < ApplicationController
   def show
     @group = Group.find(params[:group_id])
     @event = Event.find(params[:id])
+    # @modder = User.find(@event.modder)
     @attendees = []
   	@event.users.each do |user|
   	  rsvp = user.rsvps.find_by event_id: @event.id
@@ -52,6 +54,8 @@ class EventsController < ApplicationController
     @group = Group.find(params[:group_id])
   	@event = Event.find(params[:id])
   	if @event.update(params[:event].permit(:location, :datetime))
+  	  @event.modder = current_user.id
+  	  @event.save
   		redirect_to group_event_path(@event.group_id, @event)
   	else
   		redirect_to edit_group_event_path(@event.group_id, @event)
@@ -92,7 +96,11 @@ def reliability(attendee)
   @group = Group.find(params[:group_id])
   @event = Event.find(params[:id])
   myevents = @group.rsvps.where("user_id = ? and attending = ?", attendee.id, true)
-  myevents.count * 100 / @group.rsvps.where("user_id = ?", attendee.id).count
+  groupevents = @group.rsvps.where("user_id = ?", attendee.id).count
+  if groupevents == 0
+    return 0
+  end
+  myevents.count * 100 / groupevents
 end
 
 def event_params

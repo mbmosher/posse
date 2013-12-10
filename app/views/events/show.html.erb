@@ -3,15 +3,20 @@
 <p>
 <%= link_to "Back", group_path(@group), class: 'btn' %> 
 
-<% if reliability(current_user) >= 50 %>
+<% rsvp = current_user.rsvps.find_by event_id: @event.id %>
+<% if rsvp.nil? %>
+<% else %>
+
+<% if reliability(current_user) >= 50 && rsvp.attending == true %>
 <%= link_to 'Edit', edit_group_event_path(@event.group_id, @event), class: 'btn' %>
 <% end %>
 
-<% rsvp = current_user.rsvps.find_by event_id: @event.id %>
+
 <% if rsvp.attending == false %>
       <%= link_to "Attend", attend_path, method: :attend, class: 'btn' %>
 <% else %>
       <%= link_to "Flake Out", flake_path, method: :flake, data: { confirm: 'Are you sure?' }, class: 'btn' %>
+<% end %>
 <% end %>
 </p>
 
@@ -19,6 +24,11 @@
 <p>Location: <%= @event.location %></p>
 <p>Posse: <%= link_to @event.group.name, group_path(@event.group) %></p>
 <p>Description: <%= @event.description %></p>
+<p>Las modified by: <% if @event.modder.nil? %>
+	<% else %>
+	<% user = User.find(@event.modder) %>
+	<%= user.first_name + " " + user.last_name %>
+	<% end %>
 <p>Attendees:
 	<% @attendees.each do |attendee| %>
 		<%= mail_to(attendee.email, attendee.first_name + " " + attendee.last_name)%> <%= reliability(attendee) %>%, 
